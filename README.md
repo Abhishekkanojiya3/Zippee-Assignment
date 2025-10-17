@@ -1,93 +1,86 @@
 📝 Task Manager API
-A robust RESTful API for task management with user authentication, built with Django and Django REST Framework. Features JWT authentication, role-based access control, advanced filtering, and comprehensive API documentation.
-Image
 
-🌟 Features
-🔐 Authentication & Authorization
+A RESTful API for task management built with Django and Django REST Framework, featuring JWT authentication, role-based access, and task filtering.
 
-JWT-based authentication with access and refresh tokens
-User registration and login
-Password change functionality
-Role-based access control (Admin & Regular User)
-Token blacklisting for secure logout
+🚀 Features
 
-📋 Task Management
+🔐 JWT Authentication (register, login, logout, password change)
 
-Complete CRUD operations for tasks
-Task priority levels (LOW, MEDIUM, HIGH)
-Due date tracking with overdue detection
-Mark tasks as complete/incomplete
-Task statistics and analytics
+👥 Role-based access (Admin & User)
 
-🔍 Advanced Features
+✅ CRUD operations for tasks
 
-Search tasks by title and description
-Filter by completion status, priority, and dates
-Sort tasks by multiple fields
-User-specific task isolation
-Admin can view all users' tasks
+🔍 Filter, search, and sort tasks
 
-🚀 Quick Start
-Prerequisites
+📊 Task stats (completed, pending, overdue)
 
-Python 3.8 or higher
-pip (Python package manager)
-Virtual environment (recommended)
+🧩 Swagger & ReDoc API documentation
 
-Installation
+⚙️ Setup
+1. Clone & Setup
+git clone <repo-url>
+cd taskmanager
+python -m venv venv
+venv\Scripts\activate  # (Windows)
+pip install -r requirements.txt
 
-Clone the repository
+2. Configure Environment
 
-bash   git clone <your-repository-url>
-   cd task_manager_project
+Create a .env file:
 
-Create and activate virtual environment
+SECRET_KEY=your-secret
+DEBUG=True
+ALLOWED_HOSTS=localhost,127.0.0.1
+DATABASE_NAME=db.sqlite3
 
-bash   # Windows
-   python -m venv venv
-   venv\Scripts\activate
+3. Run Migrations & Server
+python manage.py makemigrations
+python manage.py migrate
+python manage.py runserver
 
-   # Mac/Linux
-   python3 -m venv venv
-   source venv/bin/activate
 
-Install dependencies
+Access:
 
-bash   pip install -r requirements.txt
+API Docs → http://127.0.0.1:8000/api/docs/
 
-Environment setup
-Create a .env file in the project root:
+Admin → http://127.0.0.1:8000/admin/
 
-env   SECRET_KEY=your-secret-key-here
-   DEBUG=True
-   ALLOWED_HOSTS=localhost,127.0.0.1
-   DATABASE_NAME=db.sqlite3
+🔑 Main Endpoints
+Action	Method	Endpoint
+Register	POST	/auth/register/
+Login	POST	/auth/login/
+Logout	POST	/auth/logout/
+List Tasks	GET	/tasks/
+Create Task	POST	/tasks/
+Task Details	GET	/tasks/{id}/
+Update/Delete Task	PUT/PATCH/DELETE	/tasks/{id}/
+Task Stats	GET	/tasks/stats/
 
-Run migrations
+All secured routes require:
 
-bash   python manage.py makemigrations
-   python manage.py migrate
+Authorization: Bearer <access_token>
 
-Create superuser (for admin access)
+🗂️ Project Structure
+taskmanager/
+├── manage.py
+├── config/
+│   ├── settings.py
+│   ├── urls.py
+├── apps/
+│   ├── authentication/
+│   └── tasks/
+└── requirements.txt
 
-bash   python manage.py createsuperuser
-Enter email, username, and password when prompted.
+🧰 Tech Stack
 
-Start the development server
+Django 4.2+
 
-bash   python manage.py runserver
+Django REST Framework
 
-Access the application
+SimpleJWT
 
-API Documentation: http://127.0.0.1:8000/api/docs/
-Admin Panel: http://127.0.0.1:8000/admin/
-API Root: http://127.0.0.1:8000/api/
+Django Filter
 
-🧪 Testing the API
-Using Swagger UI (Recommended)
+drf-yasg (Swagger)
 
-Open http://127.0.0.1:8000/api/docs/
-Click on POST /api/auth/register/ to create an account
-Click the "Authorize" button (🔒) at the top
-Enter: Bearer YOUR_ACCESS_TOKEN
-Try out all endpoints interactively!
+Python Decouple
